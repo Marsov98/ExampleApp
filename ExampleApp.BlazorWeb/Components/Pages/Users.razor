@@ -1,0 +1,29 @@
+﻿@page "/"
+@page "/Users"
+
+@inject HttpClient http
+
+<PageTitle> Все пользователи</PageTitle>
+
+@if(UsersAll == null)
+{
+    <h3> Загрузка данных ... </h3>
+}
+else
+{
+   <h3> Количество пользователей: @UsersAll.Count()</h3> 
+}
+
+
+
+
+
+@code {
+    IEnumerable<User> UsersAll = new List<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        UsersAll =  await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+    }
+
+}
