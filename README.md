@@ -5,7 +5,10 @@
 * создал CRUD операции для Users
 
 ### Документация API
- * > GET https://localhost:7032/api/Users
+ * __ Получить всех пользователей__
+   
+   > GET https://localhost:7032/api/Users
+   
  Response body
  ```json
     [
