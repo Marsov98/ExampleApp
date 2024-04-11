@@ -9,7 +9,7 @@
    
    > GET https://localhost:7032/api/Users
    
- * Response body *
+ *** Response body ***
  ```json
     [
   {
