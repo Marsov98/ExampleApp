@@ -5,7 +5,7 @@
 * создал CRUD операции для Users
 
 ### Документация API
- * __ Получить всех пользователей__
+ * Получить всех пользователей
    
    > GET https://localhost:7032/api/Users
    
@@ -23,7 +23,10 @@
 ]
  ```
 
- * > GET https://localhost:7032/api/Users/3
+ * Получить пользователя по Id
+   
+   > GET https://localhost:7032/api/Users/3
+   
  Response body
  ```json
  {
@@ -32,7 +35,10 @@
 }
  ```
 
- * > POST https://localhost:7032/api/Users
+ * Создать нового пользователя
+   
+   > POST https://localhost:7032/api/Users
+   
  Request body
 ```json
  {
@@ -41,7 +47,10 @@
 }
  ```
 
- * PUT > https://localhost:7032/api/Users/UpdateUser
+ * Обновить пользователя
+   
+   >  PUT https://localhost:7032/api/Users/UpdateUser
+   
   Request body
 ```json
  {
@@ -50,4 +59,6 @@
 }
  ```
 
- * DELETE  > https://localhost:7032/api/Users/DeleteUser?id=3
+ *   Удалить пользователя по Id
+   
+   > DELETE https://localhost:7032/api/Users/DeleteUser?id=3
