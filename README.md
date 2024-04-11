@@ -9,7 +9,7 @@
    
    > GET https://localhost:7032/api/Users
    
- Response body
+ ** Response body **
  ```json
     [
   {
@@ -27,7 +27,7 @@
    
    > GET https://localhost:7032/api/Users/3
    
- Response body
+  **Response body **
  ```json
  {
   "id": 2,
@@ -39,7 +39,7 @@
    
    > POST https://localhost:7032/api/Users
    
- Request body
+  **Request body **
 ```json
  {
   "id": 3,
@@ -51,7 +51,7 @@
    
    >  PUT https://localhost:7032/api/Users/UpdateUser
    
-  Request body
+   **Request body **
 ```json
  {
   "id": 3,
