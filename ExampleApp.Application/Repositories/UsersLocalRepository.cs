@@ -23,4 +23,46 @@ public class UsersLocalRepository : IUserRepository
     {
         return Users;
     }
+
+    /// <summary>
+    /// Возращает пользователя с указанным Id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<User> GetUserById(int id)
+    {
+        return Users.Where(u => u.Id == id).FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Добавляет нового пользователя
+    /// </summary>
+    /// <param name="user"></param>
+    public void AddUser(User user)
+    {
+        (Users as List<User>).Add(user);
+    }
+
+    /// <summary>
+    /// Обновляет имя пользователя
+    /// </summary>
+    /// <param name="user"></param>
+    public void UpdateUserName(User user)
+    {
+        foreach (var item in Users)
+        {
+            if (item.Id == user.Id) item.Name = user.Name;
+        }
+    }
+    
+    /// <summary>
+    /// Удаляет пользователя с указанным Id
+    /// </summary>
+    /// <param name="id"></param>
+    public void DeleteUser(int id)
+    {
+        var delete = (Users as List<User>).Find(u => u.Id == id);
+
+        (Users as List<User>).Remove(delete);
+    }
 }
