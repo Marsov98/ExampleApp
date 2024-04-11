@@ -11,41 +11,47 @@ public class UsersController : ControllerBase
 {
 
     private readonly IUserRepository _repo;
+
     public UsersController(IUserRepository repo)
     {
         _repo = repo;
     }
 
-
     // GET: api/<UsersController>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
     {
-        return  Ok(await _repo.GetUsers());
+        return Ok(await _repo.GetUsers());
     }
 
     // GET api/<UsersController>/5
     [HttpGet("{id}")]
-    public string Get(int id)
+    public async Task<ActionResult<User>> GetUser(int id)
     {
-        return "value";
+        var user = await _repo.GetUserById(id);
+
+        if(user != null) return Ok(user);
+        else return BadRequest();
     }
 
-    // POST api/<UsersController>
+    // POST api/<UsersController>/AddUser
     [HttpPost]
-    public void Post([FromBody] string value)
+    public void Post([FromBody] User user)
     {
+        _repo.AddUser(user);
     }
 
-    // PUT api/<UsersController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    // PUT api/<UsersController>/UpdateUser
+    [HttpPut("UpdateUser")]
+    public void Put([FromBody] User user)
     {
+        _repo.UpdateUserName(user);
     }
 
-    // DELETE api/<UsersController>/5
-    [HttpDelete("{id}")]
+    // DELETE api/<UsersController>/DeleteUser/5
+    [HttpDelete("DeleteUser")]
     public void Delete(int id)
     {
+        _repo.DeleteUser(id);
     }
 }
