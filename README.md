@@ -26,8 +26,7 @@
  * Получить пользователя по Id
    
    > GET https://localhost:7032/api/Users/3
-   
-  Response body 
+   Response body 
  ```json
  {
   "id": 2,
