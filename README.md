@@ -6,8 +6,11 @@
 * добавил Cors
 
 ### Документация API
- * > GET https://localhost:7032/api/Users
- Response body
+ * Получить всех пользователей
+   
+   > GET https://localhost:7032/api/Users
+   
+  Response body 
  ```json
     [
   {
@@ -21,8 +24,10 @@
 ]
  ```
 
- * > GET https://localhost:7032/api/Users/3
- Response body
+ * Получить пользователя по Id
+   
+   > GET https://localhost:7032/api/Users/3
+   Response body 
  ```json
  {
   "id": 2,
@@ -30,8 +35,11 @@
 }
  ```
 
- * > POST https://localhost:7032/api/Users
- Request body
+ * Создать нового пользователя
+   
+   > POST https://localhost:7032/api/Users
+   
+  Request body 
 ```json
  {
   "id": 3,
@@ -39,8 +47,11 @@
 }
  ```
 
- * PUT > https://localhost:7032/api/Users/UpdateUser
-  Request body
+ * Обновить пользователя
+   
+   >  PUT https://localhost:7032/api/Users/UpdateUser
+   
+   Request body 
 ```json
  {
   "id": 3,
