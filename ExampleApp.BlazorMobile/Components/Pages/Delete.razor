@@ -1,0 +1,24 @@
+﻿@page "/delete"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using ExampleApp.Domen.Models
+
+<label class="col-12 m-2 ">Введите Id пользователя для удаления</label>
+<input @bind="@id" class="col-12 m-2"/>
+<label class="col-12 align-self-center">@message</label>
+<button class="col-12 offset-1 m-2" @onclick="Del">Удалить</button>
+
+
+@code {
+    HttpClient httpClient = new HttpClient();
+    int id;
+    string? message;
+
+    protected async Task Del()
+    {
+        var response = await httpClient.DeleteAsync($"http://192.168.0.100:5052/api/Users/DeleteUser/{id}");
+        if (response.IsSuccessStatusCode) message = "Пользователь удалён";
+        else message = "Произошла ошибка";
+    }
+
+}

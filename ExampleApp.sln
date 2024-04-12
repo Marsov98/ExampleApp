@@ -5,19 +5,19 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.Domen", "ExampleApp.Domen\ExampleApp.Domen.csproj", "{7D00586E-2496-4BAB-AEA8-5DB43E087C64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp.API", "ExampleApp.API\ExampleApp.API.csproj", "{1E7C2162-7E2A-4688-AB2F-73FEB79F12DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.API", "ExampleApp.API\ExampleApp.API.csproj", "{1E7C2162-7E2A-4688-AB2F-73FEB79F12DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp.Application", "ExampleApp.Application\ExampleApp.Application.csproj", "{CFDAC4BE-D813-4335-91C8-AC25901149DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.Application", "ExampleApp.Application\ExampleApp.Application.csproj", "{CFDAC4BE-D813-4335-91C8-AC25901149DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3899D080-EFAD-4A42-887A-1DE1EB854B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp.BlazorMobile", "ExampleApp.BlazorMobile\ExampleApp.BlazorMobile.csproj", "{2E738456-FC86-495C-A929-079555383AF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.BlazorMobile", "ExampleApp.BlazorMobile\ExampleApp.BlazorMobile.csproj", "{2E738456-FC86-495C-A929-079555383AF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp.BlazorDesktop", "ExampleApp.BlazorDesktop\ExampleApp.BlazorDesktop.csproj", "{5A817699-BCDF-49B7-ADDF-C873818743F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.BlazorDesktop", "ExampleApp.BlazorDesktop\ExampleApp.BlazorDesktop.csproj", "{5A817699-BCDF-49B7-ADDF-C873818743F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp.BlazorWebAssembly", "ExampleApp.BlazorWebAssembly\ExampleApp.BlazorWebAssembly.csproj", "{FB0629AB-B2D1-47E0-8F20-D2F69170B95C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.BlazorWebAssembly", "ExampleApp.BlazorWebAssembly\ExampleApp.BlazorWebAssembly.csproj", "{FB0629AB-B2D1-47E0-8F20-D2F69170B95C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp.BlazorWeb", "ExampleApp.BlazorWeb\ExampleApp.BlazorWeb.csproj", "{6320602D-3113-4CD5-815A-5F7F8B175B62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleApp.BlazorWeb", "ExampleApp.BlazorWeb\ExampleApp.BlazorWeb.csproj", "{6320602D-3113-4CD5-815A-5F7F8B175B62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

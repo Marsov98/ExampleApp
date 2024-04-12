@@ -26,12 +26,9 @@ public class UsersController : ControllerBase
 
     // GET api/<UsersController>/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(int id)
+    public async Task<User> GetUser([FromRoute] int id)
     {
-        var user = await _repo.GetUserById(id);
-
-        if(user != null) return Ok(user);
-        else return BadRequest();
+        return await _repo.GetUserById(id); 
     }
 
     // POST api/<UsersController>/AddUser
@@ -49,8 +46,8 @@ public class UsersController : ControllerBase
     }
 
     // DELETE api/<UsersController>/DeleteUser/5
-    [HttpDelete("DeleteUser")]
-    public void Delete(int id)
+    [HttpDelete("DeleteUser/{id}")]
+    public void Delete([FromRoute] int id)
     {
         _repo.DeleteUser(id);
     }

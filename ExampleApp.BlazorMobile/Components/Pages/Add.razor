@@ -1,0 +1,27 @@
+﻿@page "/add"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using ExampleApp.Domen.Models
+
+<label class="col-12 m-2 ">Введите Id нового пользователя</label>
+<input @bind="@user.Id" class="col-12 m-2" />
+
+<label class="col-12 m-2 ">Введите имя нового пользователя</label>
+<input @bind="@user.Name" class="col-12 m-2" />
+<label class="col-12 align-self-center">@message</label>
+
+
+<button class="col-12 offset-1 m-2" @onclick="AddUser">Добавить</button>
+
+@code {
+    HttpClient httpClient = new HttpClient();
+    User user = new User();
+    string message;
+
+    protected async Task AddUser()
+    {
+        var response = await httpClient.PostAsJsonAsync($"http://192.168.0.100:5052/api/Users", user);
+        if (response.IsSuccessStatusCode) message = "Пользователь добавлен";
+        else message = "Произошла ошибка";
+    }
+}
