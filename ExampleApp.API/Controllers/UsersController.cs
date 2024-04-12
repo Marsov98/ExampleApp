@@ -26,7 +26,7 @@ public class UsersController : ControllerBase
 
     // GET api/<UsersController>/5
     [HttpGet("{id}")]
-    public async Task<User> GetUser([FromRoute] int id)
+    public async Task<ActionResult<User>> GetUser([FromRoute] int id)
     {
         return await _repo.GetUserById(id); 
     }
