@@ -1,3 +1,5 @@
+using ExampleApp.Application.Interfaces;
+using ExampleApp.Application.Repositories;
 using ExampleApp.BlazorWeb.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<IUserRepository, UsersLocalRepository>();
 
 var app = builder.Build();
 
