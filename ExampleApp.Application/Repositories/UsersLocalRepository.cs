@@ -61,8 +61,9 @@ public class UsersLocalRepository : IUserRepository
     /// <param name="id"></param>
     public void DeleteUser(int id)
     {
-        var delete = (Users as List<User>).Find(u => u.Id == id);
+        var delete = (Users as List<User>).Where(u => u.Id == id).FirstOrDefault();
 
-        (Users as List<User>).Remove(delete);
+        if(delete != null) (Users as List<User>).Remove(delete);
+
     }
 }

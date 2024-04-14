@@ -1,5 +1,49 @@
 ﻿@page "/"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using ExampleApp.Domen.Models
 
-<h1>Hello, world!</h1>
+<label class="col-12 m-2 ">Введите Id пользователя</label>
+<input @bind="@id" type="text" class="col-12 m-2" />
 
-Welcome to your new app.
+<button class="col-12 offset-1 m-2" @onclick="GetAny">Найти пользователя</button>
+<button class="col-12 offset-1 m-2" @onclick="GetAll">Найти всех пользователей</button>
+<label>@message</label>
+
+<table class="col-12">
+    @foreach (var item in users)
+    {
+        <tr class="row col-12 border-dark border-1 m-2">
+            <td>Id: @item.Id</td>
+            <td>Имя: @item.Name</td>
+        </tr>
+    }
+</table>
+
+@code {
+    HttpClient httpClient = new HttpClient();
+    List<User> users = new List<User>();
+    string id;
+    string? message;
+
+    protected async Task GetAll()
+    {
+        users = new();
+        message = "";
+        users = await httpClient.GetFromJsonAsync<List<User>>("http://192.168.0.100:5052/api/Users");
+
+    }
+
+    protected async Task GetAny()
+    {
+        users = new();
+        message = "";
+
+        var user = await httpClient.GetFromJsonAsync<User>($"http://192.168.0.100:5052/api/Users/{Convert.ToInt32(id)}");
+
+        if (user != null) users.Add(user);
+        else message = "Пользователь не найден";
+
+    }
+
+}

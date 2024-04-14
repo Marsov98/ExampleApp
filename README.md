@@ -3,6 +3,7 @@
 ## Add API
 * изменил DI на Singelton
 * создал CRUD операции для Users
+* добавил Cors
 
 ### Документация API
  * Получить всех пользователей
@@ -58,6 +59,9 @@
 }
  ```
 
- *   Удалить пользователя по Id
-   
-   > DELETE https://localhost:7032/api/Users/DeleteUser?id=3
+ * DELETE  > https://localhost:7032/api/Users/DeleteUser?id=3
+
+
+## Android
+
+Создал мобильное приложение с CRUD операциями
