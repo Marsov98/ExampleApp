@@ -1,0 +1,88 @@
+﻿@page "/User/Edit/{id:int}"
+
+@rendermode RenderMode.InteractiveServer
+
+@inject HttpClient http
+@inject NavigationManager navManager
+
+@if (currUser != null)
+{
+    <EditForm FormName="user-edit-form" Model="currUser" OnSubmit="@((EditContext editContext) => EditUser())">
+        <div class="container-sm show-grid float-md-start row">
+            <h4 class="my-4">Редактировать пользователя</h4>
+            <div class="col-md-1">
+                <div class="input-group">
+                    <div class="input-group-text">#</div>
+                    <InputNumber class="form-control" id="autoSizingInputGroup" aria-label="Disabled input example" @bind-Value="currUser.Id" disabled readonly></InputNumber>
+                </div>
+            </div>
+
+            <div class="col-md-3 position-relative">
+                <label for="validationTooltipUsername" class="form-label visually-hidden">Имя</label>
+                <div class="input-group">
+                    <div class="input-group-text">Имя</div>
+                    <InputText class="form-control" id="autoSizingInputGroup validationTooltipUsername" placeholder="Введите имя..." @bind-Value="currUser.Name" required></InputText>
+                    <div class="invalid-tooltip">
+                        Пожалуйста, введите имя!
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-info">Редактировать</button>
+            </div>
+        </div>
+    </EditForm>
+    
+}
+else
+{
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+        <span class="material-symbols-outlined fs-1">mood_bad</span>
+        <h3>Такого пользователя нет...</h3>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    User currUser;
+    string ErrorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            currUser = await http.GetFromJsonAsync<User>($"https://localhost:7032/api/Users/{Id}");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при выполнении операции: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
+    }
+
+    private async Task EditUser()
+    {
+        try
+        {
+            Console.WriteLine($"Обновление пользователя(Id = {currUser.Id}, Name = {currUser.Name})...");
+            var response = await http.PutAsJsonAsync($"https://localhost:7032/api/Users/UpdateUser", currUser);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Успешно. Переадресация к списку пользователей...");
+                navManager.NavigateTo($"/user/all");
+            }
+            else
+            {
+                Console.WriteLine("Ошибка. Оповещение через интерфейс...");
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при обновлении пользователя: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
+    }
+}

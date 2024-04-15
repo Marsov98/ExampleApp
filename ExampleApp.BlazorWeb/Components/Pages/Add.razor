@@ -1,0 +1,60 @@
+﻿@page "/user/add"
+
+@rendermode RenderMode.InteractiveServer
+
+@inject HttpClient http
+@inject NavigationManager navManager
+
+<EditForm FormName="user-add-form" Model="newUser" OnSubmit="@((EditContext editContext) => AddUser())">
+    <div class="container-sm show-grid float-md-start row">
+        <h4 class="my-4">Добавить пользователя</h4>
+        <div class="col-md-1">
+            <div class="input-group">
+                <div class="input-group-text">#</div>
+                <InputNumber class="form-control" id="autoSizingInputGroup validationTooltipUsername" placeholder="Введите Id..." @bind-Value="newUser.Id" required></InputNumber>
+            </div>
+        </div>
+
+        <div class="col-md-3 position-relative">
+            <label for="validationTooltipUsername" class="form-label visually-hidden">Имя</label>
+            <div class="input-group">
+                <div class="input-group-text">Имя</div>
+                <InputText class="form-control" id="autoSizingInputGroup validationTooltipUsername" placeholder="Введите имя..." @bind-Value="newUser.Name" required></InputText>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-info">Добавить</button>
+        </div>
+    </div>
+</EditForm>
+
+
+
+
+@code {
+    User newUser = new();
+    string ErrorMessage, outText = "";
+
+    private async Task AddUser()
+    {
+        try
+        {
+            Console.WriteLine($"Передача нового пользователя(Id = {newUser.Id}, Name = {newUser.Name})...");
+            var response = await http.PostAsJsonAsync($"https://localhost:7032/api/Users", newUser);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Успешно. Переадресация к списку пользователей...");
+                navManager.NavigateTo($"/user/all");
+            }
+            else
+            {
+                Console.WriteLine("Ошибка. Оповещение через интерфейс...");
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при добавлении пользователя: {ex.Message}";
+        }
+    }
+}

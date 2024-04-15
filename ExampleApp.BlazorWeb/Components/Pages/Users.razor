@@ -1,29 +1,94 @@
-﻿@page "/"
-@page "/Users"
+﻿@page "/user/all"
+
+@rendermode RenderMode.InteractiveServer
 
 @inject HttpClient http
+@inject NavigationManager navManager
 
-<PageTitle> Все пользователи</PageTitle>
-
-@if(UsersAll == null)
+@if (usersAll != null && usersAll.Count() != 0)
 {
-    <h3> Загрузка данных ... </h3>
+        <h5>Все доступные пользователи:</h5>
+    <div class="container-sm show-grid float-md-start">
+        <table class="table table-striped table-hover col-md-8">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">Id</th>
+                    <th class="col-sm-1">Имя</th>
+                    <th class="col-sm-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (User usr in usersAll)
+                {
+                    <tr>
+                        <th>@usr.Id</th>
+                        <th>@usr.Name</th>
+                        <th class="text-end">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Действия
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="@($"user/edit/{usr.Id}")">Редактировать</a></li>
+                                    <li> <button class="dropdown-item" @onclick="() => DeleteUser(usr.Id)">Удалить</button></li>
+                                </ul>
+                            </div>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-   <h3> Количество пользователей: @UsersAll.Count()</h3> 
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+        <span class="material-symbols-outlined fs-1">file_download_off</span>
+        <h3>Нет данных о пользователях...</h3>
+    </div>
 }
 
-
-
-
-
 @code {
-    IEnumerable<User> UsersAll = new List<User>();
+    IEnumerable<User> usersAll;
+
+    string ErrorMessage;
 
     protected override async Task OnInitializedAsync()
     {
-        UsersAll =  await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+        try
+        {
+            usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при выполнении операции: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
     }
 
+    private async Task DeleteUser(int Id)
+    {
+        Console.WriteLine("Метод вызван!");
+        try
+        {
+            Console.WriteLine($"Удаление пользователя id {Id}...");
+            var response = await http.DeleteAsync($"https://localhost:7032/api/Users/DeleteUser/{Id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Успешно. Обновление списка пользователей...");
+                usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+                StateHasChanged();
+            }
+            else
+            {
+                Console.WriteLine("Ошибка.");
+            }           
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при удалении пользователя: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
+    }
 }
