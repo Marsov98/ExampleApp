@@ -41,7 +41,7 @@
         try
         {
             Console.WriteLine($"Передача нового пользователя(Id = {newUser.Id}, Name = {newUser.Name})...");
-            var response = await http.PostAsJsonAsync($"https://localhost:7032/api/Users", newUser);
+            var response = await http.PostAsJsonAsync($"api/Users", newUser);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Успешно. Переадресация к списку пользователей...");

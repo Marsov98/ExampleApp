@@ -54,7 +54,7 @@ else
     {
         try
         {
-            currUser = await http.GetFromJsonAsync<User>($"https://localhost:7032/api/Users/{Id}");
+            currUser = await http.GetFromJsonAsync<User>($"api/Users/{Id}");
         }
         catch (Exception ex)
         {
@@ -68,7 +68,7 @@ else
         try
         {
             Console.WriteLine($"Обновление пользователя(Id = {currUser.Id}, Name = {currUser.Name})...");
-            var response = await http.PutAsJsonAsync($"https://localhost:7032/api/Users/UpdateUser", currUser);
+            var response = await http.PutAsJsonAsync($"api/Users/UpdateUser", currUser);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Успешно. Переадресация к списку пользователей...");
