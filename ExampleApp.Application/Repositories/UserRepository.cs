@@ -14,33 +14,84 @@ namespace ExampleApp.Application.Repositories;
 public class UserRepository : IUserRepository
 {
     private readonly ExampleAppDbContext _db;
-    public UserRepository(ExampleAppDbContext db)
+    private readonly ILogger<UserRepository> _logger;
+    public UserRepository(ExampleAppDbContext db, ILogger<UserRepository> logger)
     {
         _db = db;
+        _logger = logger;
     }
+
+    /// <summary>
+    /// Добавить нового пользователя
+    /// </summary>
+    /// <param name="user"></param>
     public void AddUser(User user)
     {
         _db.Users.Add(user);
+        try
+        {
+            _db.SaveChanges();
+            _logger.LogInformation("Новый пользователь успешно сохранён");
+        }
+        catch (Exception)
+        {
+            _logger.LogError("Ошибка сохранения нового пользователя");
+        }
     }
 
+   /// <summary>
+   /// Удалить пользователя
+   /// </summary>
+   /// <param name="id"></param>
     public void DeleteUser(int id)
     {
         var user = _db.Users.Find(id);
         _db.Users.Remove(user);
+        try
+        {
+            _db.SaveChanges();
+            _logger.LogInformation("Пользователь успешно удалён");
+        }
+        catch (Exception)
+        {
+            _logger.LogError("Ошибка удаления пользователя");
+        }
     }
 
+    /// <summary>
+    /// Получить пользователя по Id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async Task<User> GetUserById(int id)
     {
         return await _db.Users.FindAsync(id);
     }
 
+    /// <summary>
+    /// Получить всех пользователей
+    /// </summary>
+    /// <returns></returns>
     public async Task<IEnumerable<User>> GetUsers()
     {
         return await _db.Users.ToListAsync();
     }
 
-    public void UpdateUserName(User user)
+    /// <summary>
+    /// Обновить пользователя
+    /// </summary>
+    /// <param name="user"></param>
+    public void UpdateUser(User user)
     {
         _db.Users.Update(user);
+        try
+        {
+            _db.SaveChanges();
+            _logger.LogInformation("Пользователь успешно обновлён");
+        }
+        catch (Exception)
+        {
+            _logger.LogError("Ошибка обновления пользователя");
+        }
     }
 }

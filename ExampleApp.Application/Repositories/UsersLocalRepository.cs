@@ -47,7 +47,7 @@ public class UsersLocalRepository : IUserRepository
     /// Обновляет имя пользователя
     /// </summary>
     /// <param name="user"></param>
-    public void UpdateUserName(User user)
+    public void UpdateUser(User user)
     {
         foreach (var item in Users)
         {

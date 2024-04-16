@@ -9,7 +9,7 @@ public interface IUserRepository
 
     void AddUser(User user);
      
-    void UpdateUserName(User user);
+    void UpdateUser(User user);
 
     void DeleteUser(int id);
 

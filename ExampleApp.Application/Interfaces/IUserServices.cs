@@ -9,8 +9,7 @@ namespace ExampleApp.Application.Interfaces;
 
 public interface IUserServices
 {
-    public Task<bool> IsExistsUser(User user);
+    public Task<User?> IsExistsUser(User user);
     public Task<bool> IsFill(User user);
-    public Task<int> FindUserId(User user);
     public Task<User> Login(User user);
 }

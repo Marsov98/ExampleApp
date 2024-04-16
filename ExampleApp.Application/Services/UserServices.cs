@@ -19,14 +19,22 @@ public class UserServices : IUserServices
     {
         _db = db;
     }
-    public async Task<bool> IsExistsUser(User user)
-    {
-        var u = await _db.Users.Where(u => u.Login == user.Login).FirstOrDefaultAsync();
 
-        if (u != null) return true;
-        else return false;
+    /// <summary>
+    /// Проверка наличия пользователя
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    public async Task<User?> IsExistsUser(User user)
+    {
+        return await _db.Users.Where(u => u.Login == user.Login).FirstOrDefaultAsync();
     }
 
+    /// <summary>
+    /// Проверка заполненности полей
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     public async Task<bool> IsFill(User user)
     {
         bool isCurrent = true;
@@ -39,12 +47,11 @@ public class UserServices : IUserServices
         return isCurrent;
     }
 
-    public async Task<int> FindUserId(User user)
-    {
-        var u = await _db.Users.Where(u => u.Login == user.Login).FirstAsync();
-        return u.Id;
-    }
-
+    /// <summary>
+    /// Авторизация пользователя
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
     public async Task<User> Login(User user)
     {
         return await _db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).FirstOrDefaultAsync();
