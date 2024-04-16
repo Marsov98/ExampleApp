@@ -1,29 +1,80 @@
-﻿@page "/"
-@page "/Users"
+﻿@page "/User/Edit/{id:int}"
+
+@rendermode RenderMode.InteractiveServer
 
 @inject HttpClient http
+@inject NavigationManager navManager
 
-<PageTitle> Все пользователи</PageTitle>
-
-@if(UsersAll == null)
+@if (currUser != null)
 {
-    <h3> Загрузка данных ... </h3>
+    <h4>Редактировать пользователя</h4>
+
+    <div class="container-sm show-grid float-md-start">
+        <EditForm FormName="user-edit-form" Model="currUser" OnSubmit="@((EditContext editContext) => EditUser())">
+            <div class="col-md-1">
+                <div class="input-group">
+                    <div class="input-group-text">#</div>
+                    <input class="form-control" id="autoSizingInputGroup" aria-label="Disabled input example" @bind="currUser.Id" disabled readonly></input>
+                </div>
+            </div>
+
+            <div class="col-md-3 position-relative">
+                <label for="validationTooltipUsername" class="form-label visually-hidden">Имя</label>
+                <div class="input-group">
+                    <div class="input-group-text">Имя</div>
+                    <input class="form-control" id="autoSizingInputGroup validationTooltipUsername" placeholder="Введите имя..." @bind="currUser.Name" required></input>
+                    <div class="invalid-tooltip">
+                        Пожалуйста, введите имя!
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </div>
+        </EditForm>
+    </div>
 }
 else
 {
-   <h3> Количество пользователей: @UsersAll.Count()</h3> 
+    <p>Такого пользователя нет...</p>
 }
 
-
-
-
-
 @code {
-    IEnumerable<User> UsersAll = new List<User>();
+    [Parameter]
+    public int Id { get; set; }
+
+    User currUser;
+    string ErrorMessage;
 
     protected override async Task OnInitializedAsync()
     {
-        UsersAll =  await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+        try
+        {
+            currUser = await http.GetFromJsonAsync<User>($"https://localhost:7032/api/Users/{Id}");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при выполнении операции: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
     }
 
-}
+    private async Task EditUser()
+    {
+        Console.WriteLine("Вызван EditUser()");
+        try
+        {
+            var response = await http.PutAsJsonAsync($"https://localhost:7032/api/Users/UpdateUser", currUser);
+
+            // if (response.IsSuccessStatusCode)
+                // Message = response.RequestMessage.ToString();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при обновлении пользователя: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
+    }
+
+}  // 
