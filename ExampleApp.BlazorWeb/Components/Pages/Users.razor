@@ -58,7 +58,7 @@ else
     {
         try
         {
-            usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+            usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("api/Users");
         }
         catch (Exception ex)
         {
@@ -73,11 +73,11 @@ else
         try
         {
             Console.WriteLine($"Удаление пользователя id {Id}...");
-            var response = await http.DeleteAsync($"https://localhost:7032/api/Users/DeleteUser/{Id}");
+            var response = await http.DeleteAsync($"api/Users/DeleteUser/{Id}");
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Успешно. Обновление списка пользователей...");
-                usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+                usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("api/Users");
                 StateHasChanged();
             }
             else

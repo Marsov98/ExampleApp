@@ -7,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<HttpClient>(sp =>
+    new HttpClient
+    {
+        BaseAddress = new Uri("https://localhost:7032")
+    });
 builder.Services.AddSingleton<IUserRepository, UsersLocalRepository>();
 
 var app = builder.Build();
