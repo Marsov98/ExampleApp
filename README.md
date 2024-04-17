@@ -6,16 +6,9 @@
 * добавил Cors
 
 ### Документация API
-!!! При обновлении и добавлении ролей столкнулся с ошибкой и решения не знаю  (навигационное свойство не хочет быть null)
-```json  
-"status": 400,
-  "errors": {
-    "Users": [
-      "The Users field is required."
-    ]
-  }
-  ```
+
 !!! Для того чтобы API работала Вам нужно развернуть скрипт из файла script.sql
+
 ### UsersController
  * Получить всех пользователей
    
@@ -232,35 +225,40 @@ Request body
  ```  
 Response body: Роль успешно добавлена
 
-* Обновить роль
+* Обновить роль  
    
    > PUT  http://192.168.0.100:5052/api/Roles/Put  
+   
    Request body  
+   ```json
    {
     "id": 33,
     "name": "string"
-   }
+   }```  
    Response body: Роль не существует  
    
    Request body  
+    ```json 
    {
     "id": 2,
     "name": ""
-   }
+   }```  
    Response body: Не все поля были заполнены  
   
   Request body  
+    ```json
    {
     "id": 2,
     "name": "Сотрудник"
-   }
+   }```  
    Response body: Роль с таким название уже существует  
 
   Request body  
+    ```json
    {
     "id": 2,
     "name": "Владелец"
-   }
+   }```  
    Response body: Роль успешно обновлена
 
 
