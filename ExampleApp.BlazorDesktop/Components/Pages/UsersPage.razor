@@ -1,0 +1,136 @@
+﻿@page "/users"
+
+@inject HttpClient http
+
+@if (users != null)
+{
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-md-12 text-center">
+                <div class="card bg-dark" style="width: 18rem;">
+                    <div class="card-body">
+                            <h5 class="card-title">All available users:</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            @foreach (User usr in users)
+            {
+                <div class="col-lg-4 col-md-12 text-center">
+                    <div class="card bg-dark" style="width: 18rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">User #@usr.Id</h5>
+                        <p class="card-text">Name: @usr.Name</p>
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" @onclick="() => UpdateCurrentUser(usr)">Edit</button>
+                          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @onclick="() => UpdateCurrentUser(usr)">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the user?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-modal" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-modal" data-bs-dismiss="modal" @onclick="() => DeleteUser()">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>
+                    New name:<InputText @bind-Value="currentUsr.Name" />
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-modal" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-modal" data-bs-dismiss="modal" @onclick="() => EditUser()">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    }
+else
+{
+            <div class="row justify-content-md-center">
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="card bg-dark border-primary" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Users not found</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+}
+
+@code {
+    User currentUsr = new();
+    IEnumerable<User> users;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            users = await http.GetFromJsonAsync<List<User>>($"https://localhost:7032/api/Users");
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"Произошла ошибка при выполнении операции: {ex.Message}");
+        }
+    }
+
+    private async Task UpdateCurrentUser(User usr)
+    {
+        currentUsr = usr;
+    }
+
+    private async Task DeleteUser()
+    {
+        try
+        {
+            var response = await http.DeleteAsync($"https://localhost:7032/api/Users/DeleteUser/{currentUsr.Id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Trace.WriteLine("Успешное удаление");
+                users = await http.GetFromJsonAsync<IEnumerable<User>>("https://localhost:7032/api/Users");
+
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"Произошла ошибка при удалении пользователя: {ex.Message}");
+        }
+    }
+
+    private async Task EditUser()
+    {
+        try
+        {
+            var response = await http.PutAsJsonAsync($"https://localhost:7032/api/Users/UpdateUser", currentUsr);
+            if (response.IsSuccessStatusCode)
+            {
+                Trace.WriteLine("Успешное обновление пользователя");
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"Ошибка при обновлении пользователя: {ex.Message}");
+        }
+    }
+}

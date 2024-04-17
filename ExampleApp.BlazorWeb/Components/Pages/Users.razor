@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 ﻿@page "/User/Edit/{id:int}"
+=======
+﻿@page "/user/all"
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
 
 @rendermode RenderMode.InteractiveServer
 
 @inject HttpClient http
 @inject NavigationManager navManager
 
+<<<<<<< HEAD
 @if (currUser != null)
 {
     <h4>Редактировать пользователя</h4>
@@ -33,10 +38,47 @@
                 <button type="submit" class="btn btn-primary">Редактировать</button>
             </div>
         </EditForm>
+=======
+@if (usersAll != null && usersAll.Count() != 0)
+{
+        <h5>Все доступные пользователи:</h5>
+    <div class="container-sm show-grid float-md-start">
+        <table class="table table-striped table-hover col-md-8">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">Id</th>
+                    <th class="col-sm-1">Имя</th>
+                    <th class="col-sm-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (User usr in usersAll)
+                {
+                    <tr>
+                        <th>@usr.Id</th>
+                        <th>@usr.Name</th>
+                        <th class="text-end">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Действия
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="@($"user/edit/{usr.Id}")">Редактировать</a></li>
+                                    <li> <button class="dropdown-item" @onclick="() => DeleteUser(usr.Id)">Удалить</button></li>
+                                </ul>
+                            </div>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
     </div>
 }
 else
 {
+<<<<<<< HEAD
     <p>Такого пользователя нет...</p>
 }
 
@@ -45,13 +87,28 @@ else
     public int Id { get; set; }
 
     User currUser;
+=======
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+        <span class="material-symbols-outlined fs-1">file_download_off</span>
+        <h3>Нет данных о пользователях...</h3>
+    </div>
+}
+
+@code {
+    IEnumerable<User> usersAll;
+
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
     string ErrorMessage;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+<<<<<<< HEAD
             currUser = await http.GetFromJsonAsync<User>($"https://localhost:7032/api/Users/{Id}");
+=======
+            usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("api/Users");
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
         }
         catch (Exception ex)
         {
@@ -60,6 +117,7 @@ else
         }
     }
 
+<<<<<<< HEAD
     private async Task EditUser()
     {
         Console.WriteLine("Вызван EditUser()");
@@ -78,3 +136,30 @@ else
     }
 
 }  // 
+=======
+    private async Task DeleteUser(int Id)
+    {
+        Console.WriteLine("Метод вызван!");
+        try
+        {
+            Console.WriteLine($"Удаление пользователя id {Id}...");
+            var response = await http.DeleteAsync($"api/Users/DeleteUser/{Id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Успешно. Обновление списка пользователей...");
+                usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("api/Users");
+                StateHasChanged();
+            }
+            else
+            {
+                Console.WriteLine("Ошибка.");
+            }           
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при удалении пользователя: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
+    }
+}
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
