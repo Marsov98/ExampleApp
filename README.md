@@ -35,6 +35,7 @@
  * Получить пользователя по Id
    
    > GET http://192.168.0.100:5052/api/Users/1
+   
    Response body 
  ```json
  {
@@ -76,6 +77,7 @@
  ```  
  
  Server response: Пользователь с таким логином уже существует  
+ 
  Request body 
 ```json
  {
@@ -87,7 +89,8 @@
 }
  ```  
  
- Server response: Не все поля были заполнены
+ Server response: Не все поля были заполнены  
+ 
 
  * Обновить пользователя
    
@@ -100,7 +103,9 @@
   "login": "string123",
   "password": "string",
   "roleId": 1
-}  
+}
+```
+
 Server response: Пользователь с таким логином не существует  
 
 Request body 
@@ -110,16 +115,18 @@ Request body
   "login": "oleg",
   "password": "",
   "roleId": 1
-} 
+}  ```
+
 Server response: Не все поля были заполнены 
 
- ```
+
 
  * DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
 
  Server response: Пользователь успешно удалён  
 
- > http://192.168.0.100:5052/api/Users/Delete?login=stri  
+ > http://192.168.0.100:5052/api/Users/Delete?login=stri
+ 
  Server response: Пользователь с таким логином не существует
 
 
