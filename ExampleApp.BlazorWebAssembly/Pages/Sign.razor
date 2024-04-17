@@ -1,0 +1,41 @@
+﻿@page "/"
+@page "/Sign"
+@using Blazored.FluentValidation
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+    <EditForm class="form-control" EditContext="model" OnValidSubmit="Submit">
+
+        <ValidationSummary/>
+        <!-- FluentValidationValidator / -->
+        <DataAnnotationsValidator/>
+
+
+        <InputText @bind-Value="user.Name" placeholder="Введите имя" />
+        <input type="submit" value="Создать" />
+
+
+    </EditForm>
+    </div>
+</div>
+
+
+
+
+@code {
+    User user = new();
+    EditContext model;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = new(user);
+    }
+
+    public async Task Submit()
+    {
+        Console.WriteLine("Форма отправлена!");
+    }
+
+
+}

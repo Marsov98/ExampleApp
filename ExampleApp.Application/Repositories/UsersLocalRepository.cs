@@ -40,6 +40,7 @@ public class UsersLocalRepository : IUserRepository
     /// <param name="user"></param>
     public void AddUser(User user)
     {
+
         (Users as List<User>).Add(user);
     }
 

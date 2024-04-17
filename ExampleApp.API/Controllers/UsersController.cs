@@ -35,6 +35,9 @@ public class UsersController : ControllerBase
     [HttpPost]
     public void Post([FromBody] User user)
     {
+        // valid
+
+
         _repo.AddUser(user);
     }
 
@@ -51,4 +54,19 @@ public class UsersController : ControllerBase
     {
         _repo.DeleteUser(id);
     }
+
+
+    // POST api/User/checkname
+    [HttpPost("checkname")]
+    public IActionResult CheckName([FromBody] string name)
+    {
+        if (name == "admin")
+            return BadRequest("admin not allowed");
+
+        return Ok(name);
+        //return name == "admin" ? BadRequest("admin") : Ok();
+    }
+
+
+
 }
