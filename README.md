@@ -104,7 +104,7 @@
   "password": "string",
   "roleId": 1
 }
-```
+```  
 
 Server response: Пользователь с таким логином не существует  
 
@@ -115,18 +115,27 @@ Request body
   "login": "oleg",
   "password": "",
   "roleId": 1
-}```
+} 
+ ```  
+ Server response: Не все поля были заполнены  
 
-Server response: Не все поля были заполнены 
-
-
+ Request body 
+```json
+ {
+  "name": "string",
+  "login": "oleg",
+  "password": "12345",
+  "roleId": 1
+}
+ ```  
+ Server response: Пользователь успешно обновлён
 
  * DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
 
  Server response: Пользователь успешно удалён  
 
  > http://192.168.0.100:5052/api/Users/Delete?login=stri
- 
+
  Server response: Пользователь с таким логином не существует
 
 
