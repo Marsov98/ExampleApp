@@ -63,7 +63,7 @@ public class UserRepository : IUserRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<User> GetUserById(int id)
+    public async Task<User> GetUserByIdAsync(int id)
     {
         return await _db.Users.FindAsync(id);
     }
@@ -72,7 +72,7 @@ public class UserRepository : IUserRepository
     /// Получить всех пользователей
     /// </summary>
     /// <returns></returns>
-    public async Task<IEnumerable<User>> GetUsers()
+    public async Task<IEnumerable<User>> GetUsersAsync()
     {
         return await _db.Users.ToListAsync();
     }

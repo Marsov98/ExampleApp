@@ -25,7 +25,7 @@ public class UserServices : IUserServices
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    public async Task<User?> IsExistsUser(User user)
+    public async Task<User?> IsExistsUserAsync(User user)
     {
         return await _db.Users.Where(u => u.Login == user.Login).FirstOrDefaultAsync();
     }
@@ -52,7 +52,7 @@ public class UserServices : IUserServices
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    public async Task<User> Login(User user)
+    public async Task<User> LoginAsync(User user)
     {
         return await _db.Users.Where(u => u.Login == user.Login && u.Password == user.Password).FirstOrDefaultAsync();
     }

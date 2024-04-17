@@ -4,8 +4,8 @@ namespace ExampleApp.Application.Interfaces;
 public interface IUserRepository
 {
 
-    Task<IEnumerable<User>> GetUsers();
-    Task<User> GetUserById(int id);
+    Task<IEnumerable<User>> GetUsersAsync();
+    Task<User> GetUserByIdAsync(int id);
 
     void AddUser(User user);
      

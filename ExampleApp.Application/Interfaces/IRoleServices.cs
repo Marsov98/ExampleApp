@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ExampleApp.Application.Interfaces;
 
-public interface IUserServices
+public interface IRoleServices
 {
-    public Task<User?> IsExistsUserAsync(User user);
-    public Task<bool> IsFill(User user);
-    public Task<User> LoginAsync(User user);
+    public Task<Role?> IsExistsRoleAsync(Role role);
+    public Task<bool> IsFill(Role role);
 }

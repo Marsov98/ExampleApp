@@ -1,6 +1,7 @@
 using ExampleApp.Application.Interfaces;
 using ExampleApp.Application.Repositories;
 using ExampleApp.Application.Service;
+using ExampleApp.Application.Services;
 using ExampleApp.Domen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<ExampleAppDbContext>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IRoleServices, RoleServices>();
 
 var app = builder.Build();
 

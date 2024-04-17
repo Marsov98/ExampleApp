@@ -19,7 +19,7 @@ public class UsersLocalRepository : IUserRepository
     /// Возвращает все пользователей из локальной коллекции
     /// </summary>
     /// <returns> IEnumerable<User> </returns>
-    public async Task<IEnumerable<User>> GetUsers()
+    public async Task<IEnumerable<User>> GetUsersAsync()
     {
         return Users;
     }
@@ -29,7 +29,7 @@ public class UsersLocalRepository : IUserRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<User> GetUserById(int id)
+    public async Task<User> GetUserByIdAsync(int id)
     {
         return Users.Where(u => u.Id == id).FirstOrDefault();
     }

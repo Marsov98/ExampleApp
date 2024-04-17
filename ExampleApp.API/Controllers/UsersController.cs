@@ -1,11 +1,10 @@
 ﻿using ExampleApp.Application.Interfaces;
 using ExampleApp.Domen.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -20,25 +19,33 @@ namespace ExampleApp.API.Controllers
             _service = service;
         }
 
-        // GET: api/<UsersController>
+        // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
-            return Ok(await _repo.GetUsers());
+            return Ok(await _repo.GetUsersAsync());
         }
 
-        // GET: api/<UsersController>/5
+        // GET: api/Users/5
         [HttpGet ("{id}")]
         public async Task<ActionResult<User>> GetUser([FromRoute] int id)
         {
-            return Ok(await _repo.GetUserById(id));
+            var user = await _repo.GetUserByIdAsync(id);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return BadRequest("Такого пользователя не существует");
+            }
         }
 
-        // POST: api/<UsersController>/Post
-        [HttpPost ("/Post")]
+        // POST: api/Users/Post
+        [HttpPost ("Post")]
         public async Task<ActionResult> AddUser(User user)
         {
-            if ( await _service.IsExistsUser(user) == null)
+            if ( await _service.IsExistsUserAsync(user) == null)
             {
                 if (await _service.IsFill(user))
                 {
@@ -58,19 +65,15 @@ namespace ExampleApp.API.Controllers
             }
         }
 
-        // PUT: api/<UsersController>/Put
-        [HttpPut("/Put")]
+        // PUT: api/Users/Put
+        [HttpPut("Put")]
         public async Task<ActionResult> UpdateUser(User user)
         {
-            var update = await _service.IsExistsUser(user);
-
-            if (update != null)
+            if (await _service.IsExistsUserAsync(user) != null)
             {
                 if (await _service.IsFill(user))
                 {
-                    (update.Password, update.Name, update.RoleId) = (user.Password, user.Name, user.RoleId);
-
-                    _repo.UpdateUser(update);
+                    _repo.UpdateUser(user);
                     return Ok("Пользователь успешно обновлён");
                 }
                 else
@@ -86,11 +89,11 @@ namespace ExampleApp.API.Controllers
             }
         }
 
-        // DELETE: api/<UsersController>/Delete
-        [HttpDelete("/Delete")]
+        // DELETE: api/Users/Delete
+        [HttpDelete("Delete")]
         public async Task<ActionResult> DeleteUser(string login)
         {
-            var delete = await _service.IsExistsUser(new User { Login = login} );
+            var delete = await _service.IsExistsUserAsync(new User { Login = login} );
             if (delete != null)
             {
                 _repo.DeleteUser(delete.Id);
@@ -104,13 +107,14 @@ namespace ExampleApp.API.Controllers
         }
 
         // GET: api/<UsersController>/Login
-        [HttpGet ("/Login")]
+        [HttpGet ("Login")]
         public async Task<ActionResult<IEnumerable<User>>> Login(string login, string password)
         {
-            var user = _service.Login(new User { Login=login, Password=password });
+            var user = _service.LoginAsync(new User { Login=login, Password=password });
 
             if(user != null) return Ok(user);
             return BadRequest("Такого пользователя нет");
         }
     }
+
 }
