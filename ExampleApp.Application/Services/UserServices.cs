@@ -39,10 +39,10 @@ public class UserServices : IUserServices
     {
         bool isCurrent = true;
 
-        if (user.Name.Length == 0) isCurrent = false;
-        if (user.Login.Length == 0) isCurrent = false;
-        if (user.Password.Length == 0) isCurrent = false;
-        if (user.RoleId <= 0) isCurrent = false;
+        if (user.Name.Length == 0 || user.Name == null) isCurrent = false;
+        if (user.Login.Length == 0 || user.Login == null) isCurrent = false;
+        if (user.Password.Length == 0 || user.Password == null) isCurrent = false;
+        if (user.RoleId <= 0 || user.RoleId == null) isCurrent = false;
 
         return isCurrent;
     }

@@ -69,10 +69,12 @@ namespace ExampleApp.API.Controllers
         [HttpPut("Put")]
         public async Task<ActionResult> UpdateUser(User user)
         {
-            if (await _service.IsExistsUserAsync(user) != null)
+            var update = await _service.IsExistsUserAsync(user);
+            if (update != null)
             {
                 if (await _service.IsFill(user))
                 {
+                    (update.Name, update.Password, update.RoleId) = (user.Name, user.Password, user.RoleId);
                     _repo.UpdateUser(user);
                     return Ok("Пользователь успешно обновлён");
                 }
@@ -110,7 +112,7 @@ namespace ExampleApp.API.Controllers
         [HttpGet ("Login")]
         public async Task<ActionResult<IEnumerable<User>>> Login(string login, string password)
         {
-            var user = _service.LoginAsync(new User { Login=login, Password=password });
+            var user = await _service.LoginAsync(new User { Login=login, Password=password });
 
             if(user != null) return Ok(user);
             return BadRequest("Такого пользователя нет");
