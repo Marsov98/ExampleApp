@@ -131,8 +131,8 @@ Request body
  ```  
  Server response: Пользователь успешно обновлён
 
- * Удалить пользователя  
-    DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
+ * Удалить пользователя    
+DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
 
  Server response: Пользователь успешно удалён  
  
@@ -140,7 +140,7 @@ DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=stri
 
  Server response: Пользователь с таким логином не существует  
  * Авторизация  
-   GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=12345
+GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=12345
    	
 Response body  
 ```json
