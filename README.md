@@ -203,7 +203,67 @@ Response body: Такого пользователя нет
   "users": null
 }
 }
- ```
+ ```  
+ * Добавить роль
+   
+   > POST  http://192.168.0.100:5052/api/Roles/Post
+   
+   Request body 
+ ```json
+ {
+  "name": "Сотрудник"
+}
+ ```  
+Response body: Роль с таким названием уже существует  
+
+Request body 
+ ```json
+ {
+  "name": ""
+}
+ ```  
+Response body: Не все поля были заполнены  
+
+Request body 
+ ```json
+ {
+  "name": "string"
+}
+ ```  
+Response body: Роль успешно добавлена
+
+* Обновить роль
+   
+   > PUT  http://192.168.0.100:5052/api/Roles/Put  
+   Request body  
+   {
+    "id": 33,
+    "name": "string"
+   }
+   Response body: Роль не существует  
+   
+   Request body  
+   {
+    "id": 2,
+    "name": ""
+   }
+   Response body: Не все поля были заполнены  
+  
+  Request body  
+   {
+    "id": 2,
+    "name": "Сотрудник"
+   }
+   Response body: Роль с таким название уже существует  
+
+  Request body  
+   {
+    "id": 2,
+    "name": "Владелец"
+   }
+   Response body: Роль успешно обновлена
+
+
 * Удалить роль    
 > DELETE  http://192.168.0.100:5052/api/Roles/Delete?name=string  
 
