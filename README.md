@@ -234,7 +234,8 @@ Response body: Роль успешно добавлена
    {
     "id": 33,
     "name": "string"
-   }```  
+   }
+   ```  
    Response body: Роль не существует  
    
    Request body  
@@ -242,7 +243,8 @@ Response body: Роль успешно добавлена
    {
     "id": 2,
     "name": ""
-   }```  
+   }
+   ```  
    Response body: Не все поля были заполнены  
   
   Request body  
@@ -250,7 +252,8 @@ Response body: Роль успешно добавлена
    {
     "id": 2,
     "name": "Сотрудник"
-   }```  
+   }
+   ```  
    Response body: Роль с таким название уже существует  
 
   Request body  
@@ -258,7 +261,8 @@ Response body: Роль успешно добавлена
    {
     "id": 2,
     "name": "Владелец"
-   }```  
+   }
+    ```  
    Response body: Роль успешно обновлена
 
 
