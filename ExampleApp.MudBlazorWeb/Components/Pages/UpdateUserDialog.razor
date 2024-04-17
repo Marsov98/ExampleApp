@@ -1,0 +1,22 @@
+﻿@using ExampleApp.Domen.Models
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        <!-- Содержимое диалога -->
+        <p>Введите новые данные пользователя:</p>
+        <MudTextField @bind-Value="User.Name" Label="Имя пользователя" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Submit">Сохранить</MudButton>
+        <MudButton Color="Color.Secondary" OnClick="Cancel">Отмена</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter] public User User { get; set; }
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(User.Name));
+    void Cancel() => MudDialog.Close(DialogResult.Cancel());
+}

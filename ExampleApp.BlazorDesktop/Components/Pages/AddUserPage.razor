@@ -1,0 +1,57 @@
+﻿@page "/addUser"
+
+@inject HttpClient http
+@inject NavigationManager navManager
+
+<div class="row justify-content-md-center ">
+    <div class="col-lg-4 col-md-12 text-center">
+        <div class="card bg-dark" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">User #@countUsers</h5>
+            <p class="card-text">
+                    Name: <InputText @bind-Value="user.Name" />
+            </p>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" @onclick="() => AddUser()">Add user</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    User user = new();
+    int countUsers;
+    IEnumerable<User> users;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            users = await http.GetFromJsonAsync<List<User>>($"https://localhost:7032/api/Users");
+            countUsers = users.Count() + 1;
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"Произошла ошибка при выполнении операции: {ex.Message}");
+        }
+    }
+
+    private async Task AddUser()
+    {
+        try
+        {
+            user.Id = countUsers;
+            var response = await http.PostAsJsonAsync($"https://localhost:7032/api/Users", user);
+            if (response.IsSuccessStatusCode)
+            {
+                Trace.WriteLine("Пользователь добавлен");
+                countUsers++;
+                navManager.NavigateTo($"/users");
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"Oшибка при добавлении пользователя: {ex.Message}");
+        }
+    }
+}
