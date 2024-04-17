@@ -131,14 +131,16 @@ Request body
  ```  
  Server response: Пользователь успешно обновлён
 
- * DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
+ * Удалить пользователя
+    DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
 
  Server response: Пользователь успешно удалён  
-
- * DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=stri
+ 
+DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=stri
 
  Server response: Пользователь с таким логином не существует  
- * GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=12345
+ * Авторизация
+   GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=12345
    	
 Response body  
 ```json
@@ -151,12 +153,14 @@ Response body
   "role": null
 }
  ```
- * GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=123
+
+GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=123
    	
 Response body: Такого пользователя нет  
 
    
 ### RolesController
+
 
 ## Android
 
