@@ -6,6 +6,7 @@
 * добавил Cors
 
 ### Документация API
+### UsersController
  * Получить всех пользователей
    
    > GET http://192.168.0.100:5052/api/Users
@@ -134,10 +135,28 @@ Request body
 
  Server response: Пользователь успешно удалён  
 
- > http://192.168.0.100:5052/api/Users/Delete?login=stri
+ * DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=stri
 
- Server response: Пользователь с таким логином не существует
+ Server response: Пользователь с таким логином не существует  
+ * GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=12345
+   	
+Response body  
+```json
+ {
+  "id": 1,
+  "name": "string",
+  "login": "oleg",
+  "password": "12345",
+  "roleId": 1,
+  "role": null
+}
+ ```
+ * GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=123
+   	
+Response body: Такого пользователя нет  
 
+   
+### RolesController
 
 ## Android
 
