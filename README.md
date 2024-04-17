@@ -196,9 +196,11 @@ Response body: Такого пользователя нет
  ```
 * Удалить роль    
 > DELETE  http://192.168.0.100:5052/api/Roles/Delete?name=string  
+
  Server response: Роль успешно удалена
  
 > DELETE   http://192.168.0.100:5052/api/Roles/Delete?name=stri  
+
  Server response: Роли с таким название не существует
 
 ## Android
