@@ -1,10 +1,44 @@
+<<<<<<< HEAD
+﻿@page "/User/Edit/{id:int}"
+=======
 ﻿@page "/user/all"
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
 
 @rendermode RenderMode.InteractiveServer
 
 @inject HttpClient http
 @inject NavigationManager navManager
 
+<<<<<<< HEAD
+@if (currUser != null)
+{
+    <h4>Редактировать пользователя</h4>
+
+    <div class="container-sm show-grid float-md-start">
+        <EditForm FormName="user-edit-form" Model="currUser" OnSubmit="@((EditContext editContext) => EditUser())">
+            <div class="col-md-1">
+                <div class="input-group">
+                    <div class="input-group-text">#</div>
+                    <input class="form-control" id="autoSizingInputGroup" aria-label="Disabled input example" @bind="currUser.Id" disabled readonly></input>
+                </div>
+            </div>
+
+            <div class="col-md-3 position-relative">
+                <label for="validationTooltipUsername" class="form-label visually-hidden">Имя</label>
+                <div class="input-group">
+                    <div class="input-group-text">Имя</div>
+                    <input class="form-control" id="autoSizingInputGroup validationTooltipUsername" placeholder="Введите имя..." @bind="currUser.Name" required></input>
+                    <div class="invalid-tooltip">
+                        Пожалуйста, введите имя!
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+            </div>
+        </EditForm>
+=======
 @if (usersAll != null && usersAll.Count() != 0)
 {
         <h5>Все доступные пользователи:</h5>
@@ -39,10 +73,21 @@
                 }
             </tbody>
         </table>
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
     </div>
 }
 else
 {
+<<<<<<< HEAD
+    <p>Такого пользователя нет...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    User currUser;
+=======
     <div class="position-absolute top-50 start-50 translate-middle text-center">
         <span class="material-symbols-outlined fs-1">file_download_off</span>
         <h3>Нет данных о пользователях...</h3>
@@ -52,13 +97,18 @@ else
 @code {
     IEnumerable<User> usersAll;
 
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
     string ErrorMessage;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+<<<<<<< HEAD
+            currUser = await http.GetFromJsonAsync<User>($"https://localhost:7032/api/Users/{Id}");
+=======
             usersAll = await http.GetFromJsonAsync<IEnumerable<User>>("api/Users");
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
         }
         catch (Exception ex)
         {
@@ -67,6 +117,26 @@ else
         }
     }
 
+<<<<<<< HEAD
+    private async Task EditUser()
+    {
+        Console.WriteLine("Вызван EditUser()");
+        try
+        {
+            var response = await http.PutAsJsonAsync($"https://localhost:7032/api/Users/UpdateUser", currUser);
+
+            // if (response.IsSuccessStatusCode)
+                // Message = response.RequestMessage.ToString();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Произошла ошибка при обновлении пользователя: {ex.Message}";
+            Console.Error.WriteLine(ErrorMessage);
+        }
+    }
+
+}  // 
+=======
     private async Task DeleteUser(int Id)
     {
         Console.WriteLine("Метод вызван!");
@@ -92,3 +162,4 @@ else
         }
     }
 }
+>>>>>>> 8aebd21b6e517445a9a00f2d1cbdcf41e4a95fef
