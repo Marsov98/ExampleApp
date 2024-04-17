@@ -51,7 +51,7 @@
 
  * Создать нового пользователя
    
-   > POST https://localhost:7032/api/Users
+   > POST http://192.168.0.100:5052/api/Users/Post
    
   Request body 
 ```json
@@ -95,7 +95,7 @@
 
  * Обновить пользователя
    
-   >  PUT https://localhost:7032/api/Users/UpdateUser
+   >  PUT http://192.168.0.100:5052/api/Users/Put
    
    Request body 
 ```json
@@ -132,11 +132,11 @@ Request body
  Server response: Пользователь успешно обновлён
 
  * Удалить пользователя    
-DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=string  
+> DELETE  http://192.168.0.100:5052/api/Users/Delete?login=string  
 
  Server response: Пользователь успешно удалён  
  
-DELETE  > http://192.168.0.100:5052/api/Users/Delete?login=stri
+> DELETE   http://192.168.0.100:5052/api/Users/Delete?login=stri
 
  Server response: Пользователь с таким логином не существует  
  * Авторизация  
@@ -154,13 +154,52 @@ Response body
 }
  ```
 
-GET > http://192.168.0.100:5052/api/Users/Login?login=oleg&password=123
+> GET  http://192.168.0.100:5052/api/Users/Login?login=oleg&password=123
    	
 Response body: Такого пользователя нет  
 
    
 ### RolesController
+* Получить все роли
+   
+   > GET http://192.168.0.100:5052/api/Roles
+   
+  Response body 
+ ```json
+    [
+  {
+    "id": 1,
+    "name": "Администратор",
+    "users": null
+  },
+  {
+    "id": 2,
+    "name": "Сотрудник",
+    "users": null
+  }
+]
+ ```
 
+ * Получить роль по Id
+   
+   > GET http://192.168.0.100:5052/api/Roles/1
+   
+   Response body 
+ ```json
+ {
+  {
+  "id": 1,
+  "name": "Администратор",
+  "users": null
+}
+}
+ ```
+* Удалить роль    
+> DELETE  http://192.168.0.100:5052/api/Roles/Delete?name=string  
+ Server response: Роль успешно удалена
+ 
+> DELETE   http://192.168.0.100:5052/api/Roles/Delete?name=stri  
+ Server response: Роли с таким название не существует
 
 ## Android
 
