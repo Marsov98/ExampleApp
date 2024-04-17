@@ -115,7 +115,7 @@ Request body
   "login": "oleg",
   "password": "",
   "roleId": 1
-}  ```
+}```
 
 Server response: Не все поля были заполнены 
 
