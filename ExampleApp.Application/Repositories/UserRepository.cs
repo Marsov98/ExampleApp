@@ -65,7 +65,7 @@ public class UserRepository : IUserRepository
     /// <returns></returns>
     public async Task<User> GetUserByIdAsync(int id)
     {
-        return await _db.Users.FindAsync(id);
+        return await _db.Users.Include(u => u.Role.Name).Where(u => u.Id == id).FirstOrDefaultAsync();
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class UserRepository : IUserRepository
     /// <returns></returns>
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
-        return await _db.Users.ToListAsync();
+        return await _db.Users.Include(u => u.Role.Name).ToListAsync();
     }
 
     /// <summary>

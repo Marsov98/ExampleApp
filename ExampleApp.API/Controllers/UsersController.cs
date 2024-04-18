@@ -108,7 +108,7 @@ namespace ExampleApp.API.Controllers
             }
         }
 
-        // GET: api/<UsersController>/Login
+        // GET: api/Users/Login
         [HttpGet ("Login")]
         public async Task<ActionResult<IEnumerable<User>>> Login(string login, string password)
         {

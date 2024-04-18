@@ -95,7 +95,7 @@ public class RoleRepository : IRoleRepository
         try
         {
             _db.SaveChanges();
-            _logger.LogInformation("Роль успешно обновлён");
+            _logger.LogInformation("Роль успешно обновлена");
         }
         catch (Exception)
         {
