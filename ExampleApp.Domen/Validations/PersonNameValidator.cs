@@ -1,13 +1,10 @@
 ﻿using ExampleApp.Domen.Models;
 using FluentValidation;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 public class NameValidator : AbstractValidator<User>
 {
     private readonly HttpClient _httpClient;
-
     public NameValidator(HttpClient httpClient)
     {
         _httpClient = httpClient;

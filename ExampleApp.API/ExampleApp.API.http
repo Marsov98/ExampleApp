@@ -1,6 +1,28 @@
-@ExampleApp.API_HostAddress = http://localhost:5052
+@ExampleApp.API_HostAddress = https://localhost:7032
 
-GET {{ExampleApp.API_HostAddress}}/weatherforecast/
+GET {{ExampleApp.API_HostAddress}}/api/Users
 Accept: application/json
+
+###
+
+GET {{ExampleApp.API_HostAddress}}/api/Roles
+
+###
+
+POST {{ExampleApp.API_HostAddress}}/api/Roles/Post
+Content-Type: application/json
+
+{
+  //Role
+}
+
+###
+
+PUT {{ExampleApp.API_HostAddress}}/api/Users/Put
+Content-Type: application/json
+
+{
+  //User
+}
 
 ###

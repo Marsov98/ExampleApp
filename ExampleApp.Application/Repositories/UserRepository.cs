@@ -2,11 +2,6 @@
 using ExampleApp.Domen;
 using ExampleApp.Domen.Models;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExampleApp.Application.Repositories;
@@ -74,7 +69,7 @@ public class UserRepository : IUserRepository
     /// <returns></returns>
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
-        return await _db.Users.Include(u => u.Role.Name).ToListAsync();
+        return await _db.Users.Include(u => u.Role).ToListAsync();
     }
 
     /// <summary>

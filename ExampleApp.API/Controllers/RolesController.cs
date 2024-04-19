@@ -2,7 +2,6 @@
 using ExampleApp.Domen.Models;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace ExampleApp.API.Controllers
 {
     [Route("api/Roles")]
